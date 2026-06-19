@@ -1,20 +1,20 @@
-
 import pandas as pd
 import joblib
+
 from sklearn.ensemble import RandomForestRegressor
 
-df = pd.DataFrame({
- 'memory':[60,80,40,90],
- 'disk':[50,70,30,80],
- 'network':[20,40,10,60],
- 'cpu':[55,78,35,90]
-})
+df = pd.read_csv("data/cloud_metrics.csv")
 
-X=df[['memory','disk','network']]
-y=df['cpu']
+X = df[['memory','disk','network']]
+y = df['cpu']
 
-model=RandomForestRegressor()
+model = RandomForestRegressor(
+    n_estimators=100,
+    random_state=42
+)
+
 model.fit(X,y)
 
-joblib.dump(model,'model.pkl')
-print('Model saved')
+joblib.dump(model,"model.pkl")
+
+print("Model trained and saved")
